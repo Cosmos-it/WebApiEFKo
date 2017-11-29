@@ -98,7 +98,15 @@ namespace StandardWebApi.Controllers
             db.Products.Add(product);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = product.Id }, product);
+            var dto = new ProductDTO()
+            {
+                Id = product.Id,
+                Category = product.Category,
+                Name = product.Name,
+                Price = product.Price
+            };
+
+            return CreatedAtRoute("DefaultApi", new { id = product.Id }, dto);
         }
 
         // DELETE: api/Products/5
