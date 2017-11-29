@@ -1,5 +1,4 @@
-﻿var uri = 'api/products';
-
+﻿
 //Product object
 function Product(data) {
     this.Id = ko.observable(data.Id);
@@ -7,8 +6,6 @@ function Product(data) {
     this.Category = ko.observable(data.Category);
     this.Price = ko.observable(data.Price);
 }
-
-
 //start here
 function GetProducts() {
     var self = this;
@@ -16,8 +13,10 @@ function GetProducts() {
     self.Name = ko.observable();
     self.Category = ko.observable();
     self.Price = ko.observable();
+    self.singleItem = ko.observable();
+    self.search = ko.observable();
 
-    $.getJSON(uri, function (allData) {
+    $.getJSON('api/products', function (allData) {
         var mappedProducts = $.map(allData, function (item) { return new Product(item) });
         self.products(mappedProducts);
     });
@@ -25,79 +24,67 @@ function GetProducts() {
     // Operations
     self.addData = function () {
         var id = 0;
-        for (var i = 0; i < self.products().length; i++) {
-            var value = self.products()[i];
-            //if () {
-
-            //}
-            console.log(value.Id());
-        }
-
-
+        var lastItem = self.products()[self.products().length - 1];
+        console.log(lastItem.Id());
 
         //set the data to the current data.
         var data = {
+            Id: lastItem.Id() + 1,
             Name: self.Name(),
             Category: self.Category(),
             Price: self.Price()
         };
-        console.log(data);
-
         self.products.push(new Product(data));
         self.save(data);
+
         //Clear the data
         self.Category("");
         self.Name("")
         self.Price("")
     };
+    //deletes from the server
+    self.delete = function (id) {
 
+    }
 
+    //removes from the front end
+    self.remove = function (id) {
+
+    }
+
+    //Modifying the search button and UI to use ko
+    self.findById = function () {
+        self.ajaxCalls('api/products/' + self.search()).done(function (data) {
+            $('#product').text(formatItem(data));
+        });
+        self.search("");
+    }
     // Saves the data to the server
     self.save = function (data) {
-        $.ajax(uri, {
-            data: JSON.stringify(data),
-            type: "post",
-            contentType: "application/json",
-            success: function (result)
-            { alert("Item with Id:" + result.Id + " saved to the server!") }
-        });
+        var uri = 'api/products';
+        self.ajaxCalls(uri, 'POST', data);
+    }
+
+    function formatItem(item) {
+        return item.Name + ': $' + item.Price;
     }
 
     //General ajax call
-    self.ajaxCalls = function (uri, data) {
-        $.ajax(uri, {
-            data: JSON.stringify(data),
-            type: "post",
-            contentType: "application/json",
-            success: function (result)
-            { alert("Item with Id:" + result.Id + " saved to the server!") }
+    self.ajaxCalls = function (uri, method, data) {
+        return $.ajax({
+            type: method,
+            url: uri,
+            dataType: 'json',
+            contentType: 'application/json',
+            data: data ? JSON.stringify(data) : null
+
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            $('#product').text('Error: ' + err);
         });
     }
 }
-
 
 $(document).ready(function () {
 
     ko.applyBindings(new GetProducts());
-
 });
-
-//Gets an item
-function formatItem(item) {
-    return item.Name + ': $' + item.Price;
-}
-
-//Gets the data by id
-function find() {
-
-    var id = $('#prodId').val();
-
-    $.getJSON(uri + '/' + id)
-        .done(function (data) {
-            $('#product').text(formatItem(data));
-        })
-        .fail(function (jqXHR, textStatus, err) {
-            $('#product').text('Error: ' + err);
-        });
-}
-

@@ -19,17 +19,18 @@
 
             <div class="col-lg-10 col-lg-offset-1">
                 <h2>Search by id</h2>
-                <div class="input-group">
-                    <input type="text" class="form-control" id="prodId"
-                           placeholder="search by id" aria-label="search"
-                           aria-describedby="basic-addon1">
 
-                    <button type="button" class="btn btn-outline-secondary"
-                            onclick="find();">
-                        Search
-                    </button>
+                <form data-bind="submit: findById">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="prodId"
+                               placeholder="search by id" aria-label="search"
+                               name="search" data-bind="value: search"
+                               aria-describedby="basic-addon1" />
 
-                </div>
+                        <button type="submit" class="btn btn-outline-secondary">Search</button>
+                    </div>
+                </form>
+                <!-- Search Results-->
                 <p id="product"></p>
 
             </div>
@@ -85,7 +86,7 @@
         </div>
     </div>
 
-        <script src="Scripts/jquery-1.9.1.js"></script>
+    <script src="Scripts/jquery-1.9.1.js"></script>
 
 
 </body>
