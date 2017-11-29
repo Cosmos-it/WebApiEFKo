@@ -18,25 +18,26 @@ namespace StandardWebApi.Controllers
         private StandardWebApiContext db = new StandardWebApiContext();
 
         // GET: api/Products
+        //
         //public IQueryable<Product> GetProducts()
         //{
         //    return db.Products;
         //}
 
-
-        // GET: api/Products
         public IQueryable<ProductDTO> GetProducts()
         {
             var products = from p in db.Products
                            select new ProductDTO()
                            {
                                Id = p.Id,
-                               Category = p.Category,
                                Name = p.Name,
+                               Category = p.Category,
                                Price = p.Price
+
                            };
-            return products;
+                return products;
         }
+
 
         // GET: api/Products/5
         [ResponseType(typeof(Product))]
@@ -98,7 +99,15 @@ namespace StandardWebApi.Controllers
             db.Products.Add(product);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = product.Id }, product);
+            var dto = new ProductDTO()
+            {
+                Id = product.Id,
+                Category = product.Category,
+                Name = product.Name,
+                Price = product.Price
+            };
+
+            return CreatedAtRoute("DefaultApi", new { id = product.Id }, dto);
         }
 
         // DELETE: api/Products/5
