@@ -124,6 +124,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductDTO.cs" />
     <Compile Include="Models\StandardWebApiContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
