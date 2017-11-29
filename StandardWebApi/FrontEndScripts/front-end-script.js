@@ -79,7 +79,7 @@ function GetProducts() {
             data: data ? JSON.stringify(data) : null
 
         }).fail(function (jqXHR, textStatus, errorThrown) {
-            $('#product').text('Error: ' + err);
+            $('#product').text('Error: ' + errorThrown);
         });
     }
 }
