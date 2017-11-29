@@ -18,6 +18,7 @@ namespace StandardWebApi.Controllers
         private StandardWebApiContext db = new StandardWebApiContext();
 
         // GET: api/Products
+        //
         //public IQueryable<Product> GetProducts()
         //{
         //    return db.Products;

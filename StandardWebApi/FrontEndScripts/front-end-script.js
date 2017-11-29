@@ -37,6 +37,7 @@ function GetProducts() {
         self.Price("")
     };
 
+    //Status
     // Saves the data to the server
     self.save = function (data) {
         console.log("Received data", JSON.stringify(self.products()));
