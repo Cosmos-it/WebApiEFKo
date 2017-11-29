@@ -21,6 +21,7 @@ function GetProducts() {
             console.log(value.Id());
         }
 
+        //set the data to the current data.
         var data = {
             Name: self.Name(),
             Category: self.Category(),
@@ -30,11 +31,13 @@ function GetProducts() {
 
         self.products.push(new Product(data));
         self.save(data);
+        //Clear the data
         self.Category("");
         self.Name("")
         self.Price("")
     };
 
+    // Saves the data to the server
     self.save = function (data) {
         console.log("Received data", JSON.stringify(self.products()));
         $.ajax(uri, {
