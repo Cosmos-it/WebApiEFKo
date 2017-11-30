@@ -27,13 +27,23 @@ function GetProducts() {
         /** get the last product value **/
         var lastItemId = self.products()[self.products().length - 1];
 
-        /** set the data to the current data. **/
-        var data = {
-            Id: lastItemId.Id() + 1, //Add 1 to the last id
-            Name: self.Name(),
-            Category: self.Category(),
-            Price: self.Price()
-        };
+        if (lastItemId !== undefined) {
+            /** set the data to the current data. **/
+            var data = {
+                Id: lastItemId.Id() + 1, //Add 1 to the last id
+                Name: self.Name(),
+                Category: self.Category(),
+                Price: self.Price()
+            };
+        }
+        else {
+            console.log(lastItemId)
+            var data = {
+                Name: self.Name(),
+                Category: self.Category(),
+                Price: self.Price()
+            };
+        }
 
         /** save it to local array observable **/
         self.products.push(new Product(data));
