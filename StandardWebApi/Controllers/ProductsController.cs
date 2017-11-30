@@ -16,14 +16,7 @@ namespace StandardWebApi.Controllers
     public class ProductsController : ApiController
     {
         private StandardWebApiContext db = new StandardWebApiContext();
-
         // GET: api/Products
-        //
-        //public IQueryable<Product> GetProducts()
-        //{
-        //    return db.Products;
-        //}
-
         public IQueryable<ProductDTO> GetProducts()
         {
             var products = from p in db.Products
@@ -33,9 +26,8 @@ namespace StandardWebApi.Controllers
                                Name = p.Name,
                                Category = p.Category,
                                Price = p.Price
-
                            };
-                return products;
+            return products;
         }
 
 
@@ -45,10 +37,7 @@ namespace StandardWebApi.Controllers
         {
             Product product = await db.Products.FindAsync(id);
             if (product == null)
-            {
                 return NotFound();
-            }
-
             return Ok(product);
         }
 
@@ -57,17 +46,11 @@ namespace StandardWebApi.Controllers
         public async Task<IHttpActionResult> PutProduct(int id, Product product)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
-
             if (id != product.Id)
-            {
                 return BadRequest();
-            }
 
             db.Entry(product).State = EntityState.Modified;
-
             try
             {
                 await db.SaveChangesAsync();
@@ -75,13 +58,9 @@ namespace StandardWebApi.Controllers
             catch (DbUpdateConcurrencyException)
             {
                 if (!ProductExists(id))
-                {
                     return NotFound();
-                }
                 else
-                {
                     throw;
-                }
             }
 
             return StatusCode(HttpStatusCode.NoContent);
@@ -92,9 +71,7 @@ namespace StandardWebApi.Controllers
         public async Task<IHttpActionResult> PostProduct(Product product)
         {
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             db.Products.Add(product);
             await db.SaveChangesAsync();
@@ -116,9 +93,7 @@ namespace StandardWebApi.Controllers
         {
             Product product = await db.Products.FindAsync(id);
             if (product == null)
-            {
                 return NotFound();
-            }
 
             db.Products.Remove(product);
             await db.SaveChangesAsync();
@@ -129,9 +104,7 @@ namespace StandardWebApi.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
 

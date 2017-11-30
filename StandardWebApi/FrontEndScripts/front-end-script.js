@@ -6,6 +6,7 @@ function Product(data) {
     this.Category = ko.observable(data.Category);
     this.Price = ko.observable(data.Price);
 }
+
 //start here
 function GetProducts() {
     var self = this;
