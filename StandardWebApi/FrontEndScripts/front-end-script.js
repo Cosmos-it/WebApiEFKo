@@ -48,8 +48,14 @@ function GetProducts() {
     }
 
     //removes from the front end
-    self.remove = function (id) {
+    self.remove = function (dataObj) {
+        var id = dataObj.Id();
+        self.products.destroy(dataObj);
 
+        alert("Are you sure about this?");
+        self.ajaxCalls('api/products/'+id, 'DELETE').done(function (data) {
+            $('#success').text("Deleted: " + formatItem(data));
+        });
     }
 
     //Modifying the search button and UI to use ko
