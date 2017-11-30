@@ -38,7 +38,6 @@ function GetProducts() {
             };
         }
         else {
-            console.log(lastItemId)
             var data = {
                 Name: self.Name(),
                 Category: self.Category(),
