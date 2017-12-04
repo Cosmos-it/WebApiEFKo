@@ -16,6 +16,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1">
+                <a data-bind="attr: { href: url, title: detail }">
+                    Report
+                </a>
+                <div data-bind="html: details"></div>
+
                 <h2>Search by id</h2>
                 <form data-bind="submit: findById">
                     <div class="input-group">

@@ -16,6 +16,9 @@ function GetProducts() {
     self.Price = ko.observable();
     self.singleItem = ko.observable();
     self.search = ko.observable();
+    self.details = ko.observable();
+    self.url = ko.observable("year-end.html");
+    self.detail = ko.observable("Report including final year-end statistics");
 
     /** get all data **/
     $.getJSON('api/products', function (allData) {
@@ -25,7 +28,12 @@ function GetProducts() {
 
     // Operations
     self.addData = function () {
-        /** get the last product value **/
+        /**
+            get the last product value
+            reason: to post new item, you will be able to increment
+            the values of the ids to keep track of the lastest item
+            by id to reflect the database
+        **/
         var lastItemId = self.products()[self.products().length - 1];
 
         if (lastItemId !== undefined) {
@@ -56,9 +64,9 @@ function GetProducts() {
     };
 
     /**
-    removes from the front end first.
-     This will allow the user to think before 
-     Going ahead with this process to avoid data removal.
+        removes from the front end first.
+        This will allow the user to think before 
+        Going ahead with this process to avoid data removal.
     **/
     self.remove = function (dataObj) {
         var id = dataObj.Id();
@@ -105,6 +113,8 @@ function GetProducts() {
     function formatItem(item) {
         return item.Name + ': $' + item.Price;
     }
+
+    self.details("<em>For further details, view the report <a href='report.html'>here</a>.</em>");
 }
 
 $(document).ready(function () {
