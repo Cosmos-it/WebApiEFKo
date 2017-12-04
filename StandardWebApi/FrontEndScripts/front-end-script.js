@@ -7,7 +7,7 @@ function Product(data) {
     this.Price = ko.observable(data.Price);
 }
 
-//start here
+//start here: knockout function code execution. 
 function GetProducts() {
     var self = this;
     self.products = ko.observableArray([]);
@@ -54,6 +54,7 @@ function GetProducts() {
         self.Name("")
         self.Price("")
     };
+
     /**
     removes from the front end first.
      This will allow the user to think before 
@@ -80,6 +81,7 @@ function GetProducts() {
         });
         self.search("");
     }
+
     // Saves the data to the server
     self.save = function (data) {
         var uri = 'api/products';
@@ -106,6 +108,6 @@ function GetProducts() {
 }
 
 $(document).ready(function () {
-    /** do binding **/
+    /** do binding with the View **/
     ko.applyBindings(new GetProducts());
 });
