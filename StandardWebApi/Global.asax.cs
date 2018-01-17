@@ -12,7 +12,7 @@ namespace StandardWebApi
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
-            GlobalConfiguration.Configuration.MessageHandlers.Add(new MessageHandler.APIKeyMessageHandler());
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new API_Security.APIKeyMessageHandler());
         }
     }
 }
