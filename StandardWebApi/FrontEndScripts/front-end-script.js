@@ -21,8 +21,12 @@ function GetProducts() {
     self.detail = ko.observable("Report including final year-end statistics");
 
     /** get all data **/
-    $.getJSON('api/products', function (allData) {
-        var mappedProducts = $.map(allData, function (item) { return new Product(item) });
+    $.getJSON('api/products',
+        function (allData) {
+            var mappedProducts = $.map(allData, function (item)
+            {
+                return new Product(item)
+            });
         self.products(mappedProducts);
     });
 

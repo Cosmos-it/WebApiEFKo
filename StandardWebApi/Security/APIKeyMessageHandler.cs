@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace StandardWebApi.API_Security
+namespace StandardWebApi.Security
 {
     public class APIKeyMessageHandler : DelegatingHandler
     {

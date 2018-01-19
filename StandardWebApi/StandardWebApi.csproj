@@ -113,14 +113,14 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API_Security\AuthorizationServiceProvider.cs" />
-    <Compile Include="API_Security\AuthorizeAttribute.cs" />
+    <Compile Include="Security\AuthorizatonFilter.cs" />
+    <Compile Include="Security\AuthorizeAttribute.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MessageHandler\APIKeyMessageHandler.cs" />
+    <Compile Include="Security\APIKeyMessageHandler.cs" />
     <Compile Include="Migrations\201711290008358_Initial.cs" />
     <Compile Include="Migrations\201711290008358_Initial.Designer.cs">
       <DependentUpon>201711290008358_Initial.cs</DependentUpon>
