@@ -22,14 +22,14 @@ namespace StandardWebApi.Security
                 string decodeToken = Encoding.UTF8.GetString(Convert.FromBase64String(authenticationToken));
 
                 string userName = decodeToken.Substring(0, decodeToken.IndexOf(":")); //gets userName or email
-                string password = decodeToken.Substring(0, decodeToken.IndexOf(":") + 1); // gets the password
+                string password = decodeToken.Substring(decodeToken.IndexOf(":") + 1); // gets the password
 
 
                 // Login can be implement here from the server with 
                 // the user credentials.
                 if (userName == "taban" && password == "1234")
                 {
-                     // don't do anything
+                    // don't do anything
                 }
                 else
                 {
