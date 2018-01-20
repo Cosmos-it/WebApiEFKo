@@ -11,7 +11,7 @@ namespace StandardWebApi.Security
 {
     public class APIKeyMessageHandler : DelegatingHandler
     {
-        private const string APIKeyToCheck = "212sspdvfdpp=were";
+        private const string APIKeyToCheck = "jsGLWw89nv+nruXIAJvGgbGwz36uP+krWwQvx7uB47k=";
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage httpRequest, CancellationToken cancellationToken)
         {

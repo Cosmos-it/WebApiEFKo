@@ -15,7 +15,6 @@ using StandardWebApi.Security;
 
 namespace StandardWebApi.Controllers
 {
-
     [AuthorizatonFilter]
   
     public class ProductsController : ApiController

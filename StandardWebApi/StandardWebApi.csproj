@@ -114,7 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Security\AuthorizatonFilter.cs" />
-    <Compile Include="Security\AuthorizeAttribute.cs" />
+    <Compile Include="Security\AuthorizationAttribute.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
