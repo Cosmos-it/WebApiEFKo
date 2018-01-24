@@ -15,11 +15,13 @@ using StandardWebApi.Security;
 
 namespace StandardWebApi.Controllers
 {
-    [AuthorizatonFilter]
   
     public class ProductsController : ApiController
     {
         private StandardWebApiContext db = new StandardWebApiContext();
+
+
+        [Authorize]
         // GET: api/Products
         public IQueryable<ProductDTO> GetProducts()
         {
@@ -34,7 +36,7 @@ namespace StandardWebApi.Controllers
             return products;
         }
 
-
+        [Authorize]
         // GET: api/Products/5
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> GetProduct(int id)
@@ -45,6 +47,7 @@ namespace StandardWebApi.Controllers
             return Ok(product);
         }
 
+        [Authorize]
         // PUT: api/Products/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutProduct(int id, Product product)
@@ -70,6 +73,7 @@ namespace StandardWebApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [Authorize]
         // POST: api/Products
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> PostProduct(Product product)
@@ -90,6 +94,8 @@ namespace StandardWebApi.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = product.Id }, dto);
         }
+
+        [Authorize]
 
         // DELETE: api/Products/5
         [ResponseType(typeof(Product))]
