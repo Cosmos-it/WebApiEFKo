@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Filters;
@@ -20,8 +21,9 @@ namespace StandardWebApi.Controllers
     public class ProductsController : ApiController
     {
         private StandardWebApiContext db = new StandardWebApiContext();
+        HttpRequestBase _request;
 
-        
+
         // GET: api/Products/GetProducts
         public IQueryable<ProductDTO> GetProducts()
         {
@@ -47,14 +49,18 @@ namespace StandardWebApi.Controllers
         }
 
 
+        [HttpGet]
         // GET: api/Products/GenerateToken
         [ResponseType(typeof(string))]
-        public async Task<IHttpActionResult> GenerateToken()
+        public IHttpActionResult GenerateToken()
         {
-            Product product = await db.Products.FindAsync(id);
-            if (product == null)
-                return NotFound();
-            return Ok(product);
+            string ip = HttpContext.Current.Request.UserHostAddress;
+            if (string.IsNullOrEmpty(ip))
+            {
+                ip = _request.UserHostAddress;
+            }
+            var generatedToken = TokenGenerator.GenerateToken("taban", "1234", ip, 10);
+            return Ok("Token: "+generatedToken);
         }
 
         // PUT: api/Products/5
