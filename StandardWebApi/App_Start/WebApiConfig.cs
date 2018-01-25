@@ -10,7 +10,6 @@ namespace StandardWebApi
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -21,12 +20,11 @@ namespace StandardWebApi
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.SuppressDefaultHostAuthentication();
+            //config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             //Formats data to json
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new System.Net.Http.Headers.MediaTypeHeaderValue("text/html"));
-
         }
     }
 }

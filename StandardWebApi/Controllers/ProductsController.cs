@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -16,12 +17,13 @@ using StandardWebApi.Security;
 namespace StandardWebApi.Controllers
 {
   
+   [Authorize]
     public class ProductsController : ApiController
     {
         private StandardWebApiContext db = new StandardWebApiContext();
 
 
-        [Authorize]
+        [Route("api/products")]
         // GET: api/Products
         public IQueryable<ProductDTO> GetProducts()
         {
@@ -36,7 +38,21 @@ namespace StandardWebApi.Controllers
             return products;
         }
 
-        [Authorize]
+ 
+        [Route("api/products/authorize")]
+        // GET: api/Products/Authorize
+        public IQueryable<ProductDTO> Products()
+        {
+            var products = from p in db.Products
+                           select new ProductDTO()
+                           {
+                               Id = p.Id,
+                               Name = p.Name,
+                               Category = p.Category,
+                               Price = p.Price
+                           };
+            return products;
+        }
         // GET: api/Products/5
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> GetProduct(int id)
@@ -47,7 +63,14 @@ namespace StandardWebApi.Controllers
             return Ok(product);
         }
 
-        [Authorize]
+        [Route("api/products/auth")]
+        public IHttpActionResult GetAuth()
+        {
+            var identity = (ClaimsIdentity)User.Identity;
+            return Ok("Hello: " + identity.Name);
+
+        }
+
         // PUT: api/Products/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutProduct(int id, Product product)
@@ -73,7 +96,6 @@ namespace StandardWebApi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        [Authorize]
         // POST: api/Products
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> PostProduct(Product product)
@@ -94,8 +116,6 @@ namespace StandardWebApi.Controllers
 
             return CreatedAtRoute("DefaultApi", new { id = product.Id }, dto);
         }
-
-        [Authorize]
 
         // DELETE: api/Products/5
         [ResponseType(typeof(Product))]

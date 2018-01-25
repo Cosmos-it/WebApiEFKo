@@ -20,6 +20,8 @@ function GetProducts() {
     self.url = ko.observable("year-end.html");
     self.detail = ko.observable("Report including final year-end statistics");
 
+    console.log("Testing.......", self.products);
+
     /** get all data **/
     $.getJSON('api/products',
         function (allData) {
@@ -114,6 +116,22 @@ function GetProducts() {
         });
     }
 
+    //self.userName = ko.observable();
+    //self.password = ko.observable();
+
+    ////login/registration
+    //self.userInfo = function () {
+    //    var uri = 'api/account';
+    //    var data = {
+    //        userName: userName,
+    //        password: self.password
+    //    };
+
+    //    self.ajaxCalls(uri, 'POST', data);
+    //    console.log("User name: " + self.userName + " Password: " + self.password);
+    //    return "SUCCESS"
+    //}
+
     function formatItem(item) {
         return item.Name + ': $' + item.Price;
     }
@@ -121,7 +139,19 @@ function GetProducts() {
     self.details("<em>For further details, view the report <a href='report.html'>here</a>.</em>");
 }
 
+//function UInfo() {
+//    var self = this;
+//    self.userName = ko.observable();
+//    self.password = ko.observable();
+
+//    //login/registration
+//    self.userInfo = function () {
+//        console.log("User name: " + self.userName + " Password: " + self.password);
+//    }
+//}
+
 $(document).ready(function () {
+    //ko.applyBindings(new UInfo());
     /** do binding with the View **/
     ko.applyBindings(new GetProducts());
 });

@@ -23,8 +23,7 @@ namespace StandardWebApi
             _publicClientId = publicClientId;
         }
 
-        public override async Task GrantResourceOwnerCredentials
-        (OAuthGrantResourceOwnerCredentialsContext context)
+        public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             /*** Replace below user authentication code as per your Entity Framework Model ***
             using (var obj = new UserDBEntities())
@@ -44,16 +43,25 @@ namespace StandardWebApi
             }
             */
 
-            ClaimsIdentity oAuthIdentity =
-            new ClaimsIdentity(context.Options.AuthenticationType);
-            ClaimsIdentity cookiesIdentity =
-            new ClaimsIdentity(context.Options.AuthenticationType);
+            if (context.UserName != "taban" && context.Password != "1234")
+            {
+                context.SetError("Invalid grant", " Provid username and password");
+            }
 
-            AuthenticationProperties properties = CreateProperties(context.UserName);
-            AuthenticationTicket ticket =
-            new AuthenticationTicket(oAuthIdentity, properties);
-            context.Validated(ticket);
-            context.Request.Context.Authentication.SignIn(cookiesIdentity);
+            else
+            {
+                ClaimsIdentity oAuthIdentity =
+                new ClaimsIdentity(context.Options.AuthenticationType);
+                ClaimsIdentity cookiesIdentity =
+                new ClaimsIdentity(context.Options.AuthenticationType);
+
+                AuthenticationProperties properties = CreateProperties(context.UserName);
+                AuthenticationTicket ticket =
+                new AuthenticationTicket(oAuthIdentity, properties);
+                context.Validated(ticket);
+                context.Request.Context.Authentication.SignIn(cookiesIdentity);
+                return;
+            }
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
