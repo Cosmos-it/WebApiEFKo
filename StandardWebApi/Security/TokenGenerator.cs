@@ -67,7 +67,8 @@ namespace StandardWebApi.Security
                     if (!expired)
                     {
                         //
-                        // Lookup the user's account from the db.
+                        // Lookup the user's account from the db. Validate the users account before computing the 
+                        // access token
                         //
                         if (username == "taban")
                         {
@@ -84,6 +85,16 @@ namespace StandardWebApi.Security
             {
             }
             return result;
+        }
+
+        public static string GetIP(HttpRequestBase request)
+        {
+            string ip = request.Headers["X-Forwarded-For"]; // AWS compatibility
+            if (string.IsNullOrEmpty(ip))
+            {
+                ip = request.UserHostAddress;
+            }
+            return ip;
         }
     }
 }

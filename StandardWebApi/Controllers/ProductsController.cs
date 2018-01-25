@@ -16,15 +16,13 @@ using StandardWebApi.Security;
 
 namespace StandardWebApi.Controllers
 {
-  
-   [Authorize]
+
     public class ProductsController : ApiController
     {
         private StandardWebApiContext db = new StandardWebApiContext();
 
-
-        [Route("api/products")]
-        // GET: api/Products
+        
+        // GET: api/Products/GetProducts
         public IQueryable<ProductDTO> GetProducts()
         {
             var products = from p in db.Products
@@ -38,21 +36,6 @@ namespace StandardWebApi.Controllers
             return products;
         }
 
- 
-        [Route("api/products/authorize")]
-        // GET: api/Products/Authorize
-        public IQueryable<ProductDTO> Products()
-        {
-            var products = from p in db.Products
-                           select new ProductDTO()
-                           {
-                               Id = p.Id,
-                               Name = p.Name,
-                               Category = p.Category,
-                               Price = p.Price
-                           };
-            return products;
-        }
         // GET: api/Products/5
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> GetProduct(int id)
@@ -63,12 +46,15 @@ namespace StandardWebApi.Controllers
             return Ok(product);
         }
 
-        [Route("api/products/auth")]
-        public IHttpActionResult GetAuth()
-        {
-            var identity = (ClaimsIdentity)User.Identity;
-            return Ok("Hello: " + identity.Name);
 
+        // GET: api/Products/GenerateToken
+        [ResponseType(typeof(string))]
+        public async Task<IHttpActionResult> GenerateToken()
+        {
+            Product product = await db.Products.FindAsync(id);
+            if (product == null)
+                return NotFound();
+            return Ok(product);
         }
 
         // PUT: api/Products/5
