@@ -21,6 +21,7 @@ namespace StandardWebApi.Security
     /// Users will have to login into the website to get generate the token
     /// 
     /// </summary>
+
     public class APIKeyHandler : DelegatingHandler
     {
         // This _token is generated and saved in the database.
