@@ -19,16 +19,16 @@ namespace StandardWebApi.Security
                 actionContext.Response = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Forbidden);
         }
 
-        protected override bool IsAuthorized(HttpActionContext actionContext)
+        protected override bool IsAuthorized(HttpContext actionContext)
         {
             return base.IsAuthorized(actionContext);
         }
 
-        private bool Authorize(HttpRequestContext actionContext)
+        private bool Authorize(TokenGenerator actionContext)
         {
             try
             {
-                HttpRequestBase request = actionContext.RequestContext.HttpContext.Request;
+                HttpRequestBase request =;
                 string token = request.Params[_securityToken];
 
                 return SecurityManager.IsTokenValid(token, CommonManager.GetIP(request), request.UserAgent);
