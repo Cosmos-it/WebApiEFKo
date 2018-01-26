@@ -137,9 +137,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationOAuthProvider.cs" />
     <Compile Include="Models\UserDT0.cs" />
-    <Compile Include="Security\AuthorizationAttribute.cs" />
+    <Compile Include="Security\APIKeyHandler.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -169,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DBService\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711290008358_Initial.resx">

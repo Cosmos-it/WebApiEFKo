@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Filters;
@@ -16,15 +17,14 @@ using StandardWebApi.Security;
 
 namespace StandardWebApi.Controllers
 {
-  
-   [Authorize]
+
     public class ProductsController : ApiController
     {
         private StandardWebApiContext db = new StandardWebApiContext();
+        HttpRequestBase _request;
 
 
-        [Route("api/products")]
-        // GET: api/Products
+        // GET: api/Products/GetProducts
         public IQueryable<ProductDTO> GetProducts()
         {
             var products = from p in db.Products
@@ -38,21 +38,6 @@ namespace StandardWebApi.Controllers
             return products;
         }
 
- 
-        [Route("api/products/authorize")]
-        // GET: api/Products/Authorize
-        public IQueryable<ProductDTO> Products()
-        {
-            var products = from p in db.Products
-                           select new ProductDTO()
-                           {
-                               Id = p.Id,
-                               Name = p.Name,
-                               Category = p.Category,
-                               Price = p.Price
-                           };
-            return products;
-        }
         // GET: api/Products/5
         [ResponseType(typeof(Product))]
         public async Task<IHttpActionResult> GetProduct(int id)
@@ -63,12 +48,19 @@ namespace StandardWebApi.Controllers
             return Ok(product);
         }
 
-        [Route("api/products/auth")]
-        public IHttpActionResult GetAuth()
-        {
-            var identity = (ClaimsIdentity)User.Identity;
-            return Ok("Hello: " + identity.Name);
 
+        [HttpGet]
+        // GET: api/Products/GenerateToken
+        [ResponseType(typeof(string))]
+        public IHttpActionResult GenerateToken()
+        {
+            string ip = HttpContext.Current.Request.UserHostAddress;
+            if (string.IsNullOrEmpty(ip))
+            {
+                ip = _request.UserHostAddress;
+            }
+            var generatedToken = TokenGenerator.GenerateToken("taban", "1234", ip, 10);
+            return Ok("Token: "+generatedToken);
         }
 
         // PUT: api/Products/5

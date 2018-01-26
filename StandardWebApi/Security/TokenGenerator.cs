@@ -14,13 +14,13 @@ namespace StandardWebApi.Security
     
     public class TokenGenerator
     {
-        private const string _salt = "jsGLWw89nv+nruXIAJvGgbGwz36u"; // Randomly generated
+        private const string _salt = "jsGLWw89nv+nruXIAJvGgbGwz36u"; // Randomly generated for hashing password
         private const string _algo = "HmacSHA256";
         private const int _tokenExpiration = 10; // mins
 
-        public static string GenerateToken(string username, string password, string ip, string userAgent, long ticks)
+        public static string GenerateToken(string username, string password, string ip, long ticks)
         {
-            string hash = string.Join(":", new string[] { username, ip, userAgent, ticks.ToString() });
+            string hash = string.Join(":", new string[] { username, ip, ticks.ToString() });
             string hashLeft = "";
             string hashRight = "";
             using (HMAC hmac = HMACSHA256.Create(_algo))
@@ -45,7 +45,7 @@ namespace StandardWebApi.Security
             }
         }
 
-        public static bool IsTokenValid(string token, string ip, string userAgent)
+        public static bool IsTokenValid(string token, string ip)
         {
             bool result = false;
 
@@ -67,13 +67,14 @@ namespace StandardWebApi.Security
                     if (!expired)
                     {
                         //
-                        // Lookup the user's account from the db.
+                        // Lookup the user's account from the db. Validate the users account before computing the 
+                        // access token
                         //
                         if (username == "taban")
                         {
                             string password = "1234";
                             // Hash the message with the key to generate a token.
-                            string computedToken = GenerateToken(username, password, ip, userAgent, ticks);
+                            string computedToken = GenerateToken(username, password, ip, ticks);
                             // Compare the computed token with the one supplied and ensure they match.
                             result = (token == computedToken);
                         }
