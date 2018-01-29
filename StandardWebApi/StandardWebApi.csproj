@@ -152,7 +152,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductDTO.cs" />
-    <Compile Include="Models\StandardWebApiContext.cs" />
+    <Compile Include="DBService\StandardWebApiContext.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -168,7 +168,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DBService\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711290008358_Initial.resx">
