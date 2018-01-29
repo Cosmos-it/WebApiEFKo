@@ -152,8 +152,13 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductDTO.cs" />
+<<<<<<< HEAD
     <Compile Include="Models\StandardWebApiContext.cs" />
     <Compile Include="Models\Token.cs" />
+=======
+    <Compile Include="DBService\StandardWebApiContext.cs" />
+    <Compile Include="Models\User.cs" />
+>>>>>>> 79a1e5daf7392775a7cb5d11bb46fd9aec8911ec
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,7 +173,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DBService\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711290008358_Initial.resx">

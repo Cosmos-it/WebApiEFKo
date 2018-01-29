@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using StandardWebApi.Models;
 
-namespace StandardWebApi.Models
+namespace StandardWebApi
 {
     public class StandardWebApiContext : DbContext
     {
@@ -19,6 +20,6 @@ namespace StandardWebApi.Models
         {
         }
 
-        public System.Data.Entity.DbSet<StandardWebApi.Models.Product> Products { get; set; }
+        public System.Data.Entity.DbSet<Product> Products { get; set; }
     }
 }

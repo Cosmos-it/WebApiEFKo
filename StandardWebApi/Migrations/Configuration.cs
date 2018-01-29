@@ -5,15 +5,16 @@ namespace StandardWebApi.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using StandardWebApi.Models;
+    using StandardWebApi;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<StandardWebApi.Models.StandardWebApiContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<StandardWebApiContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(StandardWebApi.Models.StandardWebApiContext context)
+        protected override void Seed(StandardWebApiContext context)
         {
             //  This method will be called after migrating to the latest version.
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
