@@ -54,13 +54,8 @@ namespace StandardWebApi.Controllers
         [ResponseType(typeof(string))]
         public IHttpActionResult GenerateToken()
         {
-            string ip = HttpContext.Current.Request.UserHostAddress;
-            if (string.IsNullOrEmpty(ip))
-            {
-                ip = _request.UserHostAddress;
-            }
-            var generatedToken = TokenGenerator.GenerateToken("taban", "1234", ip, 10);
-            return Ok("Token: "+generatedToken);
+            var generatedToken = TokenGenerator.GetToken(12);
+            return Ok(generatedToken);
         }
 
         // PUT: api/Products/5

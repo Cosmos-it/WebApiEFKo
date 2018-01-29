@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -43,6 +44,33 @@ namespace StandardWebApi.Security
                 hmac.ComputeHash(Encoding.UTF8.GetBytes(key));
                 return Convert.ToBase64String(hmac.Hash);
             }
+        }
+
+        public static Models.Token GetToken(int userId)
+        {
+            string token = Guid.NewGuid().ToString();
+            DateTime issuedOn = DateTime.Now;
+            DateTime expiredOn = DateTime.Now.AddSeconds(Convert.ToDouble(600));
+            //DateTime expiredOn = DateTime.Now.AddSeconds(Convert.ToDouble(ConfigurationManager.AppSettings["AuthTokenExpiry"]));
+            var tokendomain = new Models.Token
+            {
+                UserID = userId,
+                Issued_On = issuedOn,
+                Expires_On = expiredOn,
+                AuthToken = token,
+            };
+
+            //_unitOfWork.TokenRepository.Insert(tokendomain);
+            //_unitOfWork.Save();
+            //var tokenModel = new TokenEntity()
+            //{
+            //    UserID = userId,
+            //    AuthToken = token,
+            //    Issued_On = issuedOn,
+            //    Expires_On = expiredOn
+            //};
+
+            return tokendomain;
         }
 
         public static bool IsTokenValid(string token, string ip)

@@ -153,7 +153,7 @@
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ProductDTO.cs" />
     <Compile Include="Models\StandardWebApiContext.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Token.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
